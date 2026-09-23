@@ -1,9 +1,8 @@
 # A*x**2+B*x+C = 0
 import sys
-import math
+from calc import equation
 
 max_value = 10000 
-
 
 if len(sys.argv)-1 == 0 or sys.argv[1] == "--help":
 
@@ -20,17 +19,17 @@ elif sys.argv[1] == "solve":
         try:
             A = int(input("Введите A: "))
         except ValueError:
-            print("Ошибка: коэффициент не является целым числом",file=sys.stderr)
+            print("Ошибка: коэффициент A не является целым числом",file=sys.stderr)
             sys.exit(1)
         try:
             B = int(input("Введите B: "))
         except ValueError:
-            print("Ошибка: коэффициент не является целым числом",file=sys.stderr)
+            print("Ошибка: коэффициент B не является целым числом",file=sys.stderr)
             sys.exit(1)
         try:
             C = int(input("Введите C: "))
         except ValueError:
-            print("Ошибка: коэффициент не является целым числом",file=sys.stderr)
+            print("Ошибка: коэффициент C не является целым числом",file=sys.stderr)
             sys.exit(1)
 
     elif len(sys.argv) -1 == 7 and (sys.argv[2] =='-a' and sys.argv[4] =='-b' and sys.argv[6] =='-c'):
@@ -45,15 +44,10 @@ elif sys.argv[1] == "solve":
     else:
         print("Ошибка: неверная команда",file=sys.stderr)
         sys.exit(1)
-
-
-    if abs(A) > max_value or abs(B) > max_value or abs(C) > max_value:
-        print("Ошибка: значение вне допустимого диапазона",file=sys.stderr)
-        sys.exit(1)
-
-
     
+    kind, D, roots = equation.solve(A, B, C)
 
+    print(kind, D, roots)
     
 
     
