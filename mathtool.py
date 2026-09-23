@@ -52,31 +52,11 @@ elif sys.argv[1] == "solve":
         sys.exit(1)
 
 
-    if A == 0:
-        if B != 0:
-            print("Уравнение линейное")
-            x = -C/B
-            print(f"x = {x:.3f}")
-        else:
-            print("Ошибка: это не уравнение, неизвестное отсутствует",file=sys.stderr)
-            sys.exit(1)
     
-    else:
-        print("Уравнение квадратное")
-        D = B**2 - 4 * A * C 
-        print("Дискриминант: ",D)
+
     
-        if D > 0:
-            x1 = (-B + math.sqrt(D))/(2*A)
-            x2 = (-B - math.sqrt(D))/(2*A)
-            print(f"x1 = {x1:.3f}",f"x2 = {x2:.3f}")
-        
-        elif D == 0:
-            x = -B/(2*A)
-            print(f"x = {x:.3f}")
-        
-        else:
-            print("Действительных корней нет")
+
+    
 
 else:
     print("Ошибка: неверная команда",file=sys.stderr)
