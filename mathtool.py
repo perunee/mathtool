@@ -1,8 +1,25 @@
 # A*x**2+B*x+C = 0
 
 import sys
-from calc import equation
+from calc import equation, stats
 from cli import build_parser
+
+
+
+
+
+
+def handle_stats(args):
+    numbers = stats.get_numbers(args.input)
+    print(f"Чисел: {len(numbers)}")   # временно, до пункта 2.9
+    return 0
+
+
+
+
+
+
+
 
 
 
@@ -19,6 +36,15 @@ def handle_solve(args):
     print(kind, D, roots) 
     return 0
 
+
+
+
+
+
+
+
+
+
 def main(argv):
     parser = build_parser()
     args = parser.parse_args(sys.argv[1:])
@@ -30,10 +56,25 @@ def main(argv):
     try:
         if args.command == "solve":
             return handle_solve(args)
-        
+        elif args.command == "stats":
+            return handle_stats(args)
+
     except (ValueError, OSError) as error:
         print(f"ОШИБКА: {error}", file=sys.stderr)
         return 1
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
