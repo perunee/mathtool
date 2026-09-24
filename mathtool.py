@@ -1,57 +1,40 @@
 # A*x**2+B*x+C = 0
+
 import sys
 from calc import equation
-
-max_value = 10000 
-
-if len(sys.argv)-1 == 0 or sys.argv[1] == "--help":
-
-    print('mathtool - решение уравнения вида A*x^2+B*x+C = 0\n'
-        '\nИспользование: \n \n   python mathtool.py                         вывод справки\n   python mathtool.py --help                  вывод справки'
-        '\n   python mathtool.py solve                   ввод коэффициентов с клавиатуры \n   python mathtool.py solve -a X -b X -c X    решение с задаными коэффициентами' \
-        '\n\nКоэффициенты A, B, С - целые числа, по модулю не превышающие 10000')
-    sys.exit(0)
+from cli import build_parser
 
 
-elif sys.argv[1] == "solve":
 
-    if len(sys.argv)-1 ==1:
-        try:
-            A = int(input("Введите A: "))
-        except ValueError:
-            print("Ошибка: коэффициент A не является целым числом",file=sys.stderr)
-            sys.exit(1)
-        try:
-            B = int(input("Введите B: "))
-        except ValueError:
-            print("Ошибка: коэффициент B не является целым числом",file=sys.stderr)
-            sys.exit(1)
-        try:
-            C = int(input("Введите C: "))
-        except ValueError:
-            print("Ошибка: коэффициент C не является целым числом",file=sys.stderr)
-            sys.exit(1)
+def handle_solve(args):
+    given = [args.a, args.b, args.c]
+    if all(v is None for v in given):
+        args.a = int(input("Введите A: "))   
+        args.b = int(input("Введите B: "))
+        args.c = int(input("Введите C: "))
+    elif any(v is None for v in given):
+        raise ValueError("коэффиценты не все")
+    equation.MAX_VALUE({"A":args.a , "B": args.b, "C": args.c})
+    kind, D, roots = equation.solve(args.a, args.b, args.c)
+    print(kind, D, roots) 
+    return 0
 
-    elif len(sys.argv) -1 == 7 and (sys.argv[2] =='-a' and sys.argv[4] =='-b' and sys.argv[6] =='-c'):
-        try:
-            A = int(sys.argv[3])
-            B = int(sys.argv[5])
-            C = int(sys.argv[7])
-        except ValueError:
-            print("Ошибка: числа должны быть целыми",file=sys.stderr)
-            sys.exit(1)  
-
-    else:
-        print("Ошибка: неверная команда",file=sys.stderr)
-        sys.exit(1)
+def main(argv):
+    parser = build_parser()
+    args = parser.parse_args(sys.argv[1:])
     
-    kind, D, roots = equation.solve(A, B, C)
+    if args.command is None:
+        parser.print_help()
+        return 0
 
-    print(kind, D, roots)
-    
+    try:
+        if args.command == "solve":
+            return handle_solve(args)
+        
+    except (ValueError, OSError) as error:
+        print(f"ОШИБКА: {error}", file=sys.stderr)
+        return 1
 
-    
 
-else:
-    print("Ошибка: неверная команда",file=sys.stderr)
-    sys.exit(1)
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
