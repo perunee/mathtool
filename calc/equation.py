@@ -1,16 +1,16 @@
 import math
-max_value = 10000
 
-def MAX_VALUE(coefficientes):
+MAX_VALUE = 10000
+
+def max_value(coefficientes):
     for name, value in coefficientes.items():
-        if abs(value) > max_value:
+        if abs(value) > MAX_VALUE:
             raise ValueError(f"значение коэффициента {name} вне допустимого диапазона")
     if coefficientes["A"]== 0 and coefficientes["B"]==0:
         raise ValueError("ОШИБКА: A и B не могут одновременно быть равны нулю")
 
 def solve(A,B,C):
-    for i in A,B,C:
-        MAX_VALUE(i)
+    max_value({"A": A, "B": B, "C": C})
 
     if A != 0:
         D = B**2 - 4 * A * C

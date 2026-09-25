@@ -76,8 +76,8 @@ def sko(num):
 
 def st_ot(num):# CTAHDAPTHOE OTKJIOHEHUE
     if len(num) < 2:
-        return "3HA4EHUu` HET"
-    return math.sqrt(summ_kv(num)/(len(num)-1)) 
+        return None
+    return math.sqrt(kv_otkl(num)/(len(num)-1)) 
 
 
 def minimum(num):
