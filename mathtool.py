@@ -98,14 +98,19 @@ def handle_stats(args):
 def handle_solve(args):
     given = [args.a, args.b, args.c]
     if all(v is None for v in given):
-        args.a = int(input("Введите A: "))   
-        args.b = int(input("Введите B: "))
-        args.c = int(input("Введите C: "))
+        args.a = equation.intABC("A")  
+        args.b = equation.intABC("B") 
+        args.c = equation.intABC("C") 
     elif any(v is None for v in given):
-        raise ValueError("коэффиценты не все")
+        raise ValueError("Укажите или все коэфиценты, или не одного")
     equation.max_value({"A":args.a , "B": args.b, "C": args.c})
     kind, D, roots = equation.solve(args.a, args.b, args.c)
-    print(kind, D, roots) 
+    if len(roots) == 2:
+        print(kind, D, f"x1={roots[0]} x2={roots[1]}") 
+    elif len(roots)==1:
+        print(kind, D, f"x={roots[0]}")
+    else: 
+        print(kind, D, "нет действительных корней")
     return 0
 
 

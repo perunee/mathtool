@@ -65,3 +65,326 @@ x = -2.167
 10	A = 0 и B = 0 — неизвестного нет, уравнения не существует при любом C; сообщение об ошибке и код возврата 1.
 ввод:python mathtool.py solve -a 0 -b 0  -c 312 
 вывод:Ошибка: это не уравнение, неизвестное отсутствует
+
+
+
+
+
+
+
+
+
+
+ЛАБ № 2:
+
+
+
+
+
+
+
+_1_2_
+python mathtool.py stats --input numbers.txt
+Количество: 3
+Сумма: 10.000
+Ср. арифм.: 3.333
+Сумма кв.: 42.000
+Ср. кв.: 3.742
+Дисперсия: 2.889
+СКО: 1.700
+Станд. откл.: 2.082
+Наименьшее: 1.000
+Наибольшее: 5.000
+Положительных: 3
+Отрицательных: 0
+
+
+
+_3_
+python mathtool.py stats         
+4 1 5 
+^Z
+Количество: 3
+Сумма: 10.000
+Ср. арифм.: 3.333
+Сумма кв.: 42.000
+Ср. кв.: 3.742
+Дисперсия: 2.889
+СКО: 1.700
+Станд. откл.: 2.082
+Наименьшее: 1.000
+Наибольшее: 5.000
+Положительных: 3
+Отрицательных: 0
+
+
+_4_
+python mathtool.py stats
+7
+^Z
+Количество: 1
+Сумма: 7.000
+Ср. арифм.: 7.000
+Сумма кв.: 49.000
+Ср. кв.: 7.000
+Дисперсия: 0.000
+СКО: 0.000
+Станд. откл.: НЕ СУЩЕСТВУЕТ
+Наименьшее: 7.000
+Наибольшее: 7.000
+Положительных: 1
+Отрицательных: 0
+
+
+
+_5_
+python mathtool.py stats
+
+^Z
+ОШИБКА: нет чисел
+PS D:\matchtool\mathtool> 
+
+
+
+
+_6_
+python mathtool.py stats
+1 2 abc
+ОШИБКА: abc не является числом
+
+
+
+
+
+_7_
+python mathtool.py stats --input nosush.txt 
+ОШИБКА: файл не открывается
+
+
+
+
+
+
+_8_
+python mathtool.py series --func sqplus --terms 1
+S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ...
+Слагаемых: 1
+Сумма ряда: 0.5000
+
+_9_
+python mathtool.py series --func sqplus --terms 6
+S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ...
+Слагаемых: 6
+Сумма ряда: 0.3526
+
+_10_
+python mathtool.py series --func sqplus --eps 0.0001
+S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ...
+Слагаемых: 100
+Сумма ряда: 0.3639
+
+
+_11_
+python mathtool.py series --func third --eps 0.0001  
+S = 1/3 - 1/6 + 1/9 - ...
+Слагаемых: 3334
+Сумма ряда: 0.2310
+
+
+_12_
+python mathtool.py series --func sqplus --terms 10000
+S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ...
+Слагаемых: 10000
+Сумма ряда: 0.3640
+
+
+_13_
+python mathtool.py series --func sqplus --terms 10001
+ОШИБКА: количество слагаемых вне диапазона
+
+
+_14_
+python mathtool.py series --func sqplus --eps 0.001  
+ОШИБКА: точность вне диапазона
+
+_15_
+ python mathtool.py series --func sqplus --terms 6 --eps 0.0001          
+usage: mathtool series [-h] --func FUNC (--terms TERMS | --eps EPS)
+mathtool series: error: argument --eps: not allowed with argument --terms
+$LASTEXITCODE
+2
+
+
+_16_
+python mathtool.py integrate --func ratio --from 0 --to 20 --steps 10
+F(x) = x / (x + 1)
+Значение интеграла: 15.733488939680893
+
+_17_
+python mathtool.py integrate --func ratio --from 0 --to 20 --steps 1000                                                    
+F(x) = x / (x + 1)
+Значение интеграла: 16.945920496338292
+
+_18_
+python mathtool.py integrate --func ratio --from 0 --to 20 --steps 10000
+F(x) = x / (x + 1)
+Значение интеграла: 16.95452484874689
+
+_19_
+python mathtool.py integrate --func ratio --from 5 --to 10 --steps 1000 
+F(x) = x / (x + 1)
+Значение интеграла: 4.39367476183755
+
+_20_
+python mathtool.py integrate --func root --from -4.9 --to 4.9 --steps 1000 
+F(x) = sqrt(x^2 + 1)
+Значение интеграла: 26.797550945537495
+
+_21_
+python mathtool.py integrate --func root --from -5 --to 5 --steps 1000    
+ОШИБКА: предел вне промежутка
+
+_22_
+python mathtool.py integrate --func ratio --from 4 --to 1 --steps 1000
+ОШИБКА: начальный предел не меньше конечного
+
+_23_
+python mathtool.py integrate --func ratio --from 0 --to 20 --steps 100001
+ОШИБКА: количество шагов вне диапазона
+
+
+_24_
+python mathtool.py solve -a 1 -b -3 -c 2                                 
+Уравнение квадратное 1 [2.0, 1.0]
+
+
+_25_
+python mathtool.py solve -c 2 -a 1 -b -3
+Уравнение квадратное 1 [2.0, 1.0]
+
+
+_26_
+python mathtool.py solve -a 1 -b -2 -c 1                                 
+Уравнение квадратное 0 [1.0]
+
+_27_
+python mathtool.py solve -a 1 -b 0 -c 5  
+Уравнение квадратное -20 []
+
+_28_
+python mathtool.py solve -a 0 -b 2 -c 5  
+Уравнение линейное None [-2.5]
+
+
+_29_
+python mathtool.py solve -a 0 -b 0 -c 7
+ОШИБКА: ОШИБКА: A и B не могут одновременно быть равны нулю
+
+_30_
+python mathtool.py solve -a 50000 -b 1 -c 1
+ОШИБКА: значение коэффициента A вне допустимого диапазона
+
+_31_
+python mathtool.py solve -a abs -b 1 -c 1  
+usage: mathtool solve [-h] [-a A] [-b B] [-c C]
+mathtool solve: error: argument -a: invalid int value: 'abs'
+
+_32_
+python mathtool.py solve -x 1 -b -3 -c 2 
+usage: mathtool [-h] {solve,stats,series,integrate} ...
+mathtool: error: unrecognized arguments: -x 1
+
+
+_33_
+python mathtool.py solve                   
+Введите A: 1
+Введите B: -3
+Введите C: 2
+Уравнение квадратное 1 [2.0, 1.0]
+
+_34_
+python mathtool.py solve
+Введите A: 1
+Введите B: x
+ОШИБКА: коэффициент B не является целым числом
+
+
+_35_
+ python mathtool.py solve -a 1 -b 2
+ОШИБКА: Укажите или все коэфиценты, или не одного
+
+
+_36_
+python mathtool.py                
+usage: mathtool [-h] {solve,stats,series,integrate} ...
+
+positional arguments:
+  {solve,stats,series,integrate}
+    solve               решение уравнения A*x^2+B*x+C = 0
+    stats               показатели последовательности
+    series              сумма ряда
+    integrate           численное интегрирование
+
+options:
+  -h, --help            show this help message and exit
+
+
+_37_
+python mathtool.py --help
+usage: mathtool [-h] {solve,stats,series,integrate} ...
+
+positional arguments:
+  {solve,stats,series,integrate}
+    solve               решение уравнения A*x^2+B*x+C = 0
+    stats               показатели последовательности
+    series              сумма ряда
+    integrate           численное интегрирование
+
+options:
+  -h, --help            show this help message and exit
+
+
+_38_
+python mathtool.py series --help
+usage: mathtool series [-h] --func FUNC (--terms TERMS | --eps EPS)
+
+options:
+  -h, --help     show this help message and exit
+  --func FUNC    какой ряд суммировать
+  --terms TERMS  сколько слагаемых сложить
+  --eps EPS      точность: считать, пока слагаемое >= eps
+
+
+
+
+_39_
+  python mathtool.py series badcmd
+usage: mathtool series [-h] --func FUNC (--terms TERMS | --eps EPS)
+mathtool series: error: the following arguments are required: --func
+
+
+_40_
+python mathtool.py series --func sqplus --terms 0
+ОШИБКА: количество слагаемых вне диапазона
+
+
+_41_
+python mathtool.py series --func sqplus --eps 0
+ОШИБКА: точность вне диапазона
+
+
+_42_
+python mathtool.py series --func third --eps 0.000001
+ОШИБКА: точность не достигнута
+
+
+_43_
+python mathtool.py series --func sqplus              
+usage: mathtool series [-h] --func FUNC (--terms TERMS | --eps EPS)
+mathtool series: error: one of the arguments --terms --eps is required
+
+
+
+_44_
+python mathtool.py integrate --func ratio --from 0 --to 20 --steps 0
+ОШИБКА: количество шагов вне диапазона

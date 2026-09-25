@@ -29,5 +29,13 @@ def solve(A,B,C):
         if B!= 0:
             x = -C / B
             return "Уравнение линейное", None, [x]
+
+
+
+
         
-                
+def intABC(n):
+    try:
+        return int(input(f"Введите {n}: "))
+    except ValueError:
+        raise ValueError(f"коэффициент {n} не является целым числом")

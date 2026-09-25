@@ -33,14 +33,14 @@ def get_numbers(input_path):
 
 def chek_list(num):
     if len(num) == 0:
-        ValueError('нет чисел')
+        raise ValueError('нет чисел')
     if len(num) > MAX_COUNT:
-        ValueError(f'чисел больше{MAX_COUNT}')
+        raise ValueError(f'чисел больше{MAX_COUNT}')
     for i in num:
         if not math.isfinite(i):
             raise ValueError(f"{i} не является конечным числом")
         if abs(i) > MAX_VALUE: 
-            ValueError(f'значение {i} вне диапозона')
+            raise ValueError(f'значение {i} вне диапозона')
 
 
 def summa(num):
