@@ -8,16 +8,19 @@ MAX_COUNT = 20
 def read_numbers(source):
     numbers = []
     for line in source:
+        
         for word in line.split():
             try:
                 value = float(word)
             except ValueError:
                 raise ValueError(f"{word} не является числом")
+            
             numbers.append(value)
     return numbers
 
 
 def get_numbers(input_path):
+    
     if input_path is not None:
         try:
             with open(input_path, encoding="utf-8-sig") as handle:
@@ -28,6 +31,7 @@ def get_numbers(input_path):
         numbers = read_numbers(sys.stdin)
 
     chek_list(numbers)
+    
     return numbers 
 
 

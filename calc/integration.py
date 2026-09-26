@@ -17,14 +17,14 @@ FUNCTIONS = {
 }
 
 
-def check_limits(a, b, low, high, strog):
+def check_limits(start, to, low, high, is_ratio):
 
-    if not (math.isfinite(a) and math.isfinite(b)):
+    if not (math.isfinite(start) and math.isfinite(to)):
         raise ValueError("предел не является конечным числом")
-    if a >= b:
+    if start >= to:
         raise ValueError("начальный предел не меньше конечного")
-    for i in a, b:
-        if strog:
+    for i in start, to:
+        if is_ratio:
             outside = i < low or i > high
         else:
             outside = i <= low or i >= high
@@ -37,11 +37,11 @@ def check_steps(steps):
         raise ValueError("количество шагов вне диапазона")
 
 
-def integrate(F, a, b, steps):
-    
-    dx = (b - a) / steps
+def integrate(Function, start, to, steps):
+    dx = (to - start) / steps
     result = 0
     for i in range(steps):
-        x = a + i * dx
-        result += F(x) * dx
+        x = start + i * dx
+        result += Function(x) * dx
     return result
+    

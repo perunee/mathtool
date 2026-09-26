@@ -46,23 +46,27 @@ def main(argv):
         if args.command == "integrate":
             return handle_integrate(args)
 
-    except (ValueError, OSError) as error:
+    except (ValueError, OSError, KeyError) as error:
         print(f"ОШИБКА: {error}", file=sys.stderr)
         return 1
 
 
 
 def handle_integrate(args):
-    function, formula, low, high, closed = integration.FUNCTIONS[args.func]
+    try :
+    
+        function, formula, low, high, is_ratio = integration.FUNCTIONS[args.func]
+        
+        integration.check_limits(args.start, args.to, low, high, is_ratio)
+        integration.check_steps(args.steps)
+        result = integration.integrate(function, args.start, args.to, args.steps)
 
-    integration.check_limits(args.start, args.to, low, high, closed)
-    integration.check_steps(args.steps)
-    result = integration.integrate(function, args.start, args.to, args.steps)
-
-    print(formula)
-    print(f"Значение интеграла: {result}")
-    return 0
-
+        print(formula)
+        print(f"Значение интеграла: {result:.3f}")
+        return 0
+    
+    except KeyError:
+       raise KeyError(f"Неверное значение --func: ({args.func})")
 
 
 def handle_series(args):
@@ -84,7 +88,6 @@ def handle_series(args):
 
 def handle_stats(args):
     numbers = stats.get_numbers(args.input)
-
     for label, function, form in REPORT:
         value = function(numbers)
         if value is None:
@@ -92,25 +95,29 @@ def handle_stats(args):
         else:
             print(f"{label}: {value:{form}}")
     return 0
+    
 
 
 
 def handle_solve(args):
     given = [args.a, args.b, args.c]
-    if all(v is None for v in given):
+    if all(i is None for i in given):
         args.a = equation.intABC("A")  
         args.b = equation.intABC("B") 
         args.c = equation.intABC("C") 
-    elif any(v is None for v in given):
+    elif any(i is None for i in given):
         raise ValueError("Укажите или все коэфиценты, или не одного")
     equation.max_value({"A":args.a , "B": args.b, "C": args.c})
     kind, D, roots = equation.solve(args.a, args.b, args.c)
-    if len(roots) == 2:
-        print(kind, D, f"x1={roots[0]} x2={roots[1]}") 
-    elif len(roots)==1:
-        print(kind, D, f"x={roots[0]}")
-    else: 
-        print(kind, D, "нет действительных корней")
+    if D:
+        if len(roots) == 2:
+            print(kind, D, f"x1={roots[0]:.3f} x2={roots[1]:.3f}") 
+        elif len(roots)==1:
+            print(kind, D, f"x={roots[0]:.3f}")
+        else: 
+            print(kind, D, "нет действительных корней")
+    else:
+        print(kind,f"x={roots[0]:.3f}")
     return 0
 
 

@@ -7,7 +7,7 @@ def max_value(coefficientes):
         if abs(value) > MAX_VALUE:
             raise ValueError(f"значение коэффициента {name} вне допустимого диапазона")
     if coefficientes["A"]== 0 and coefficientes["B"]==0:
-        raise ValueError("ОШИБКА: A и B не могут одновременно быть равны нулю")
+        raise ValueError("A и B не могут одновременно быть равны нулю")
 
 def solve(A,B,C):
     max_value({"A": A, "B": B, "C": C})
