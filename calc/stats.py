@@ -7,7 +7,19 @@ MAX_COUNT = 20
 
 def read_numbers(source):
     numbers = []
-    for line in source:
+    while True:
+        input_num = str(input())
+        if input_num == '':
+            break
+        else:
+            try:
+                value = float(input_num)
+            except ValueError:
+                raise ValueError(f"{input_num} не является числом")
+            input_num = float(input_num)
+            numbers.append(input_num)
+    return numbers
+    """for line in source:
         
         for word in line.split():
             try:
@@ -15,7 +27,7 @@ def read_numbers(source):
             except ValueError:
                 raise ValueError(f"{word} не является числом")
             
-            numbers.append(value)
+            numbers.append(value)"""
     return numbers
 
 
