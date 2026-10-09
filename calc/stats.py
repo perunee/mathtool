@@ -6,28 +6,19 @@ MAX_COUNT = 20
 
 
 def read_numbers(source):
+    nums = []
     numbers = []
-    while True:
-        input_num = str(input())
+    while True:       
+        input_num = input()
         if input_num == '':
             break
         else:
-            try:
-                value = float(input_num)
-            except ValueError:
-                raise ValueError(f"{input_num} не является числом")
-            input_num = float(input_num)
-            numbers.append(input_num)
-    return numbers
-    """for line in source:
-        
-        for word in line.split():
-            try:
-                value = float(word)
-            except ValueError:
-                raise ValueError(f"{word} не является числом")
-            
-            numbers.append(value)"""
+            nums.append(input_num)
+    for line in nums:
+        numbers.extend(line.split())
+                
+    for i in range(len(numbers)):
+        numbers[i] = int(numbers[i])
     return numbers
 
 

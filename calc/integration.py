@@ -7,26 +7,26 @@ def f_ratio(x):
 
 
 def f_root(x):
-    return math.sqrt(x **2 + 1)
+    return math.sqrt(x ** 2 + 1)
 
 
 
 FUNCTIONS = {
-    "ratio": (f_ratio, "F(x) = x / (x + 1)", 0, 20, True),
-    "root": (f_root, "F(x) = sqrt(x^2 + 1)", -5, 5, False)
+    "ratio": (f_ratio, "F(x) = x / (x + 1)", 0, 20, "rat"),
+    "root": (f_root, "F(x) = sqrt(x^2 + 1)", -5, 5, "root")
 }
 
 
-def check_limits(start, to, low, high, is_ratio):
+def check_limits(start, to, low, high, func):
 
     if not (math.isfinite(start) and math.isfinite(to)):
         raise ValueError("предел не является конечным числом")
     if start >= to:
         raise ValueError("начальный предел не меньше конечного")
     for i in start, to:
-        if is_ratio:
+        if func == "rat":
             outside = i < low or i > high
-        else:
+        elif func == "root":
             outside = i <= low or i >= high
         if outside:
             raise ValueError("предел вне промежутка")
