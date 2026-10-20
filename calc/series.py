@@ -18,10 +18,13 @@ def term_sqplus(n):
 def term_third(n):
     return sign(n)/(3*n)
 
+def term_pos(n):
+    return n
 
 FORMULAS = {
     "sqplus": (term_sqplus, "S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ..."),
     "third": (term_third, "S = 1/3 - 1/6 + 1/9 - ..."),
+    "pos": (term_pos, "S = 2 + 3 + 4 + ...")
 }
 
 
@@ -46,8 +49,10 @@ def sum_by_count(term, count):
 
 
 def sum_by_eps(term, eps):
-    result = 0
     n = 0
+    if term == term_pos:
+        raise ValueError("pos работает только с terms")
+    result = 0
     while True:
         n += 1
         value = term(n)

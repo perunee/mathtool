@@ -1,5 +1,3 @@
-# A*x**2+B*x+C = 0
-
 import sys
 from calc import equation, stats, series, integration
 from cli import build_parser
@@ -18,11 +16,6 @@ REPORT = [
     ("Положительных", stats.count_pos, "d"),
     ("Отрицательных", stats.count_neg, "d"),
 ]
-
-
-
-
-
 
 
 
@@ -71,7 +64,6 @@ def handle_integrate(args):
 
 def handle_series(args):
     term, formula = series.FORMULAS[args.func]
-
     if args.terms is not None:
         series.check_terms(args.terms)
         result = series.sum_by_count(term, args.terms)
