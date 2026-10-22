@@ -42,4 +42,26 @@ def build_parser():
     integrate.add_argument("--steps", type=int, required=True,
                            help="количество прямоугольников")
 
+    fill = subparsers.add_parser(
+        "fill", help="134", allow_abbrev=False
+    )
+    fill.add_argument("--count","-c", required=True, help="количество элементов, от 1 до 1 000 000")
+    fill.add_argument("--min", type=int, required=False)
+    fill.add_argument("--max", type=int, required=False)
+    fill.add_argument("--seed", type=int,required=False,help="начальное значение генератора, целое число")
+    fill.add_argument("--output","-o",required=False,help= "файл для созданного массива")
+
+    sort = subparsers.add_parser(
+        "sort", help="134", allow_abbrev=False
+    )
+    sort.add_argument("--method","-m",required=True,help="bubble, selection, insertion или counting")
+    sort.add_argument("--order", required=False,help="asc — по возрастанию, desc — по убыванию")
+    sort.add_argument("--input","-i",required=False,help="файл с исходным массивом")
+    sort.add_argument("--output","-o",required=False,help="файл для отсортированного массивафайл для отсортированного массива")
+    
+    search = subparsers.add_parser(
+        "search", help="134", allow_abbrev=False
+    )
+    search.add_argument("--value","-v",required=True,help="искомое целое число, модуль не больше 1000")
+    search.add_argument("--input","-i",required=False,help="файл с массивом по возрастанию")
     return parser

@@ -1,5 +1,5 @@
 import sys
-from calc import equation, stats, series, integration
+from calc import equation, stats, series, integration, sorting
 from cli import build_parser
 
 REPORT = [
@@ -38,6 +38,12 @@ def main(argv):
             return handle_series(args)
         if args.command == "integrate":
             return handle_integrate(args)
+        if args.command =="fill":
+            return handle_fill(args)
+        if args.command =="sort":
+            return handle_sort(args)
+        if args.command =="search":
+            return handle_search(args)
 
     except (ValueError, OSError, KeyError) as error:
         print(f"ОШИБКА: {error}", file=sys.stderr)
@@ -45,7 +51,31 @@ def main(argv):
 
 
 
+def handle_sort(args):
+    pass
+
+def handle_search(args):
+    pass
+
+
+def handle_fill(args):
+    if args.min== None:
+        if args.max== None:    
+            print(sorting.zapolnn(args.count , args.seed))
+        else:
+            print(sorting.zapolnn(args.count , args.seed, high = args.max))
+    elif args.max ==None:
+        print(sorting.zapolnn(args.count , args.seed, low = args.min))
+    else:
+        print(sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max))
+# обработчик fill:
+#     проверить количество и границы значений
+#     массив = заполнить(count, min, max, seed)
+#     вывести массив или записать в --output
+    #[63, -72, -94, 89, -30] при с=5 seed = 42
+
 def handle_integrate(args):
+    
     try :
     
         function, formula, low, high, is_ratio = integration.FUNCTIONS[args.func]
