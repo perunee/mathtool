@@ -1,5 +1,5 @@
 import sys
-from calc import equation, stats, series, integration, sorting
+from calc import equation, stats, series, integration, sorting, arrays
 from cli import build_parser
 
 REPORT = [
@@ -52,7 +52,11 @@ def main(argv):
 
 
 def handle_sort(args):
-    pass
+    function = arrays[args.func]
+    function(args.input)
+    if args.order == "desc":
+        pass
+
 
 def handle_search(args):
     pass
@@ -68,11 +72,6 @@ def handle_fill(args):
         print(sorting.zapolnn(args.count , args.seed, low = args.min))
     else:
         print(sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max))
-# обработчик fill:
-#     проверить количество и границы значений
-#     массив = заполнить(count, min, max, seed)
-#     вывести массив или записать в --output
-    #[63, -72, -94, 89, -30] при с=5 seed = 42
 
 def handle_integrate(args):
     

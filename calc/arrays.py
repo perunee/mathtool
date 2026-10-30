@@ -2,6 +2,11 @@ MIN_VALUE = -100
 MAX_VALUE = 100
 MAX_COUNT = 1000000
 MAX_SEARCH = 1000
+import sorting as s
 
-METHODS = {}
-
+METHODS = {
+    "bubble":[s.bubble()],
+    "selection":[],
+    "insertion":[],
+    "counting":[]
+}
