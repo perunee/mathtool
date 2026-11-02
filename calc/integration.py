@@ -1,4 +1,6 @@
 import math
+from calc.equation import solve
+
 
 MAX_STEPS = 100000
 
@@ -10,13 +12,13 @@ def f_root(x):
     return math.sqrt(x ** 2 + 1)
 
 def f_parab(x):
-    return -x**2 + 4*x + 4/3
-
+    return -x**2 + 2*x + 3
+a , s , d = solve(-1, 2, 3)
 
 FUNCTIONS = {
     "ratio": (f_ratio, "F(x) = x / (x + 1)", 0, 20, "rat"),
     "root": (f_root, "F(x) = sqrt(x^2 + 1)", -5, 5, "root"),
-    "parab": (f_parab, "F(x) = -x^2 + 4x +4/3",-0.31, 4.31, "par")
+    "parab": (f_parab, "F(x) = -x^2 + 2x +3", d[0], d[1], "par")
 }
 
 

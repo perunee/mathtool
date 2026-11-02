@@ -50,12 +50,14 @@ def main(argv):
         return 1
 
 
-
 def handle_sort(args):
-    function = arrays[args.func]
-    function(args.input)
-    if args.order == "desc":
-        pass
+    array = sorting.get_array(args.input)
+    function = sorting.METHODS[args.method]
+    descending = (args.order == "desc")
+    function(array, descending)
+    sorting.save_array(args.output, array)
+    print(array)
+    print("Массив отсортирован.")
 
 
 def handle_search(args):
@@ -63,15 +65,23 @@ def handle_search(args):
 
 
 def handle_fill(args):
+
     if args.min== None:
         if args.max== None:    
             print(sorting.zapolnn(args.count , args.seed))
+            arr = sorting.zapolnn(args.count , args.seed)
         else:
             print(sorting.zapolnn(args.count , args.seed, high = args.max))
+            arr = sorting.zapolnn(args.count , args.seed, high = args.max)
     elif args.max ==None:
         print(sorting.zapolnn(args.count , args.seed, low = args.min))
+        arr = sorting.zapolnn(args.count , args.seed, low = args.min)
     else:
         print(sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max))
+        arr = sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max)
+
+    sorting.save_array(args.output, arr)
+    return 0    
 
 def handle_integrate(args):
     

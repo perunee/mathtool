@@ -1,11 +1,8 @@
-from calc import arrays as a
+from calc.arrays import MAX_COUNT,MAX_SEARCH,MAX_VALUE,MIN_VALUE
 import random
 import sys
 
-MIN_VALUE = int(a.MIN_VALUE)
-MAX_VALUE = int(a.MAX_VALUE)
-MAX_COUNT = int(a.MAX_COUNT)
-MAX_SEARCH = int(a.MAX_SEARCH)
+
 
 def zapolnn(count , seed = None, low =MIN_VALUE, high =MAX_VALUE):
     if low > high:
@@ -21,60 +18,70 @@ def zapolnn(count , seed = None, low =MIN_VALUE, high =MAX_VALUE):
         i +=1
     return tt
 
-
-def read_array(source):
-    arr = []
-    numbers = []
-    while True:       
-        input_num = input()
-        if input_num == '':
-            break
-        else:
-            arr.append(input_num)
-    for line in arr:
-        numbers.extend(line.split())
-                
-    for i in range(len(numbers)):
-        numbers[i] = int(numbers[i])
-    return numbers
-
-
 def get_array(input_path):
     
     if input_path is not None:
         try:
             with open(input_path, encoding="utf-8-sig") as handle:
-                numbers = read_array(handle)
+                text = handle.read()
         except OSError:
             raise ValueError("файл не открывается")
     else:
-        numbers = read_array(sys.stdin)
+        lines = []
+        while True:
+            try:
+                line = input()
+                if not line.strip(): 
+                    break
+                lines.append(line)
+            except EOFError:
+                break
+        text = " ".join(lines)
 
-def save_array(input_path):
-    
+    text = text.replace(",","")
+    word = text.split()
+    try:
+        numbers = [int(w) for w in word]
+    except ValueError:
+        raise ValueError("В данных есть не целые числа")
+        
+    return numbers
+
+def save_array(input_path,numbers):
+    result_str = " ".join(str(x) for x in numbers)
     if input_path is not None:
         try:
-            with open(input_path,"w", encoding="utf-8-sig") as handle:
-                numbers = read_array(handle)
+            with open(input_path,"w", encoding="utf-8") as handle:
+                handle.write(result_str)
         except OSError:
             raise ValueError("файл не открываетсhhhhhh")
 
 
 
 def poryadok(a,b,desc):
-    if desc: return a<b
-    else: return b<a
+    if desc: return a < b
+    else: return a > b 
 
 
 def bubble(array,desc = False):
     n = len(array)
-    for i in range(0,n - 2 +1):
+    for i in range(0, n - 2 +1):
         obmen = False
-        for j in range(0,n - 2 - i +1):
-            if poryadok(i , j , desc ):
-                a = array[j]
-                array[j] = array[j+1]
-                array[j+1] = a
+        for j in range(0, n - 2 - i +1):
+            if poryadok(array[j] , array[j+1] , desc ):
+                array[j], array[j+1] = array[j+1], array[j]
+                
                 obmen = True
         if obmen == False :
             break
+
+
+
+
+
+METHODS = {
+    "bubble": bubble,
+    "selection":None,
+    "insertion":None,
+    "counting":None
+}

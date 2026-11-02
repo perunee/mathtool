@@ -21,10 +21,14 @@ def term_third(n):
 def term_pos(n):
     return n
 
+def testss(n):
+    return sign(n)/(n**3-12)
+
 FORMULAS = {
     "sqplus": (term_sqplus, "S = 1/(1^2+1) - 1/(2^2+1) + 1/(3^2+1) - ..."),
     "third": (term_third, "S = 1/3 - 1/6 + 1/9 - ..."),
-    "pos": (term_pos, "S = 2 + 3 + 4 + ...")
+    "pos": (term_pos, "S = 2 + 3 + 4 + ..."),
+    "test":(testss, "S = 1/1^3 - 12 - 1/2^3 - 12") 
 }
 
 

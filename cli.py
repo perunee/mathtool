@@ -57,7 +57,7 @@ def build_parser():
     sort.add_argument("--method","-m",required=True,help="bubble, selection, insertion или counting")
     sort.add_argument("--order", required=False,help="asc — по возрастанию, desc — по убыванию")
     sort.add_argument("--input","-i",required=False,help="файл с исходным массивом")
-    sort.add_argument("--output","-o",required=False,help="файл для отсортированного массивафайл для отсортированного массива")
+    sort.add_argument("--output","-o",required=False,help="файл для отсортированного массива")
     
     search = subparsers.add_parser(
         "search", help="134", allow_abbrev=False
