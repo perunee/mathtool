@@ -75,13 +75,19 @@ def bubble(array,desc = False):
         if obmen == False :
             break
 
-
-
+def selection(array, desc = False):
+    n = len(array)
+    for i in range(0, n - 2 + 1):
+        best = i
+        for j in range(i + 1, n - 1 + 1):
+            if poryadok(array[best],array[j],desc):
+                best = j
+        array[i],array[best] = array[best], array[i]
 
 
 METHODS = {
     "bubble": bubble,
-    "selection":None,
+    "selection":selection,
     "insertion":None,
     "counting":None
 }
