@@ -94,10 +94,23 @@ def insertion(array, desc = False):
                 j-=1
             array[j] = now
 
+def counting(array, desc = False):
+    count = [0]* (MAX_VALUE - MIN_VALUE + 1)
+    for i in array:
+        count[i - MIN_VALUE] +=1
+    k = 0
+    nomer = range(MAX_VALUE - MIN_VALUE + 1)
+    if desc:
+        nomer = reversed(nomer)
+    for i in nomer:
+        for n in range(count[i]):
+            array[k] = i + MIN_VALUE
+            k+=1
 
+    
 METHODS = {
     "bubble": bubble,
     "selection":selection,
     "insertion":insertion,
-    "counting":None
+    "counting":counting
 }

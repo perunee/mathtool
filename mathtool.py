@@ -65,7 +65,7 @@ def handle_search(args):
 
 
 def handle_fill(args):
-
+    
     if args.min== None:
         if args.max== None:    
             print(sorting.zapolnn(args.count , args.seed))
