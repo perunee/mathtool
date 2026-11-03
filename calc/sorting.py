@@ -1,6 +1,5 @@
 from calc.arrays import MAX_COUNT,MAX_SEARCH,MAX_VALUE,MIN_VALUE
 import random
-import sys
 
 
 
@@ -15,7 +14,7 @@ def zapolnn(count , seed = None, low =MIN_VALUE, high =MAX_VALUE):
     i=1
     while i <= int(count):
         tt.append(random.randint(low, high))
-        i +=1
+        i += 1
     return tt
 
 def get_array(input_path):
@@ -55,7 +54,7 @@ def save_array(input_path,numbers):
                 handle.write(result_str)
         except OSError:
             raise ValueError("файл не открываетсhhhhhh")
-
+    print(result_str)
 
 
 def poryadok(a,b,desc):
@@ -114,3 +113,14 @@ METHODS = {
     "insertion":insertion,
     "counting":counting
 }
+
+
+def double_search(array, isk):
+    left = 0
+    right = len(array)-1
+    while left <= right:
+        mid = (left+right)//2
+        if array[mid] == int(isk): return mid
+        elif array[mid] < int(isk): left = mid + 1
+        else: right = mid - 1
+    return None 

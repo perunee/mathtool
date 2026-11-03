@@ -56,30 +56,39 @@ def handle_sort(args):
     descending = (args.order == "desc")
     function(array, descending)
     sorting.save_array(args.output, array)
-    print(array)
-    print("Массив отсортирован.")
+    print("Массив отсортирован")
+    return 0
 
 
 def handle_search(args):
-    pass
+    
+    if not (int(args.value) < arrays.MAX_SEARCH):
+        raise ValueError("Искомое число больше максимального")
+    array = sorting.get_array(args.input)
+    for i in range(0,len(array)-1):
+        if not(array[i] <= array[i+1]):
+            raise ValueError("Масcив не отсортирован")
+    
+    indecs = sorting.double_search(array, args.value)
+    if indecs == None: 
+        print(f"Значение {args.value} не найдено")
+        return 1
+    print(f"Значение {args.value} имеет элемент с индексом {indecs+1}")
+# обработчик search:
+#     проверить: модуль искомого не больше MAX_SEARCH
+#     массив = прочитать_массив(--input)
+#     проверить: каждый элемент не больше следующего
+#     индекс = двоичный_поиск(массив, искомое)
+#     если индекс is None: вывести «Значение … не найдено.»; вернуть 1
+#     вывести «Значение … имеет элемент с индексом <индекс + 1>.»; вернуть 0
+
 
 
 def handle_fill(args):
-    
-    if args.min== None:
-        if args.max== None:    
-            print(sorting.zapolnn(args.count , args.seed))
-            arr = sorting.zapolnn(args.count , args.seed)
-        else:
-            print(sorting.zapolnn(args.count , args.seed, high = args.max))
-            arr = sorting.zapolnn(args.count , args.seed, high = args.max)
-    elif args.max ==None:
-        print(sorting.zapolnn(args.count , args.seed, low = args.min))
-        arr = sorting.zapolnn(args.count , args.seed, low = args.min)
-    else:
-        print(sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max))
-        arr = sorting.zapolnn(args.count , args.seed, low = args.min, high = args.max)
 
+    low = args.min if args.min is not None else arrays.MIN_VALUE
+    high = args.max if args.max is not None else arrays.MAX_VALUE
+    arr = sorting.zapolnn(args.count, args.seed, low=low, high=high)
     sorting.save_array(args.output, arr)
     return 0    
 
