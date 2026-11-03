@@ -84,10 +84,20 @@ def selection(array, desc = False):
                 best = j
         array[i],array[best] = array[best], array[i]
 
+def insertion(array, desc = False):
+    n = len(array)
+    for i in range(1, n - 1 + 1):
+            now = array[i]
+            j = i 
+            while (j > 0) and poryadok(array[j-1], now, desc):
+                array[j] = array[j-1]
+                j-=1
+            array[j] = now
+
 
 METHODS = {
     "bubble": bubble,
     "selection":selection,
-    "insertion":None,
+    "insertion":insertion,
     "counting":None
 }
