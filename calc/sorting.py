@@ -8,7 +8,8 @@ def zapolnn(count , seed = None, low =MIN_VALUE, high =MAX_VALUE):
         raise ValueError(f"Не верные границы. значение min должно быть меньше max")
     if int(low) < MIN_VALUE or high > MAX_VALUE:
         raise ValueError(f"Не верные границы. Максимальное ограничение от {MIN_VALUE} до {MAX_VALUE}")
-    
+    if not(0 < int(count) < MAX_COUNT): 
+        raise ValueError(f"количество элементов вне диапазона 1..{MAX_COUNT}")
     random.seed(seed)
     tt =[]
     i=1
@@ -53,8 +54,10 @@ def save_array(input_path,numbers):
             with open(input_path,"w", encoding="utf-8") as handle:
                 handle.write(result_str)
         except OSError:
-            raise ValueError("файл не открываетсhhhhhh")
-    print(result_str)
+            raise ValueError("файл не открывается")
+        print(f"Записано элементов: {len(numbers)} в файл {input_path}")
+    else:
+        print(result_str)
 
 
 def poryadok(a,b,desc):
@@ -107,11 +110,11 @@ def counting(array, desc = False):
             k+=1
 
     
-METHODS = {
-    "bubble": bubble,
-    "selection":selection,
-    "insertion":insertion,
-    "counting":counting
+METHODS = {  #на 30 000 эл
+    "bubble": bubble, #27сек
+    "selection":selection, #17сек
+    "insertion":insertion, #14сек
+    "counting":counting #<1сек
 }
 
 

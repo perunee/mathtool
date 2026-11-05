@@ -1,6 +1,7 @@
 import sys
 from calc import equation, stats, series, integration, sorting, arrays
 from cli import build_parser
+import time
 
 REPORT = [
     ("Количество", len, "d"),
@@ -17,7 +18,13 @@ REPORT = [
     ("Отрицательных", stats.count_neg, "d"),
 ]
 
-
+def get_time(function, array, descending, func_name):
+    start = time.perf_counter()
+    res = function(array, descending)
+    fin = time.perf_counter()
+    func_time = fin - start
+    print(f"Функция: {func_name}; время: {func_time: .6f}",file=sys.stderr)
+    return res
 
 
 
@@ -54,7 +61,8 @@ def handle_sort(args):
     array = sorting.get_array(args.input)
     function = sorting.METHODS[args.method]
     descending = (args.order == "desc")
-    function(array, descending)
+    get_time(function,array, descending, args.method)
+    # function(array, descending)
     sorting.save_array(args.output, array)
     print("Массив отсортирован")
     return 0
@@ -74,18 +82,10 @@ def handle_search(args):
         print(f"Значение {args.value} не найдено")
         return 1
     print(f"Значение {args.value} имеет элемент с индексом {indecs+1}")
-# обработчик search:
-#     проверить: модуль искомого не больше MAX_SEARCH
-#     массив = прочитать_массив(--input)
-#     проверить: каждый элемент не больше следующего
-#     индекс = двоичный_поиск(массив, искомое)
-#     если индекс is None: вывести «Значение … не найдено.»; вернуть 1
-#     вывести «Значение … имеет элемент с индексом <индекс + 1>.»; вернуть 0
-
+    return 0
 
 
 def handle_fill(args):
-
     low = args.min if args.min is not None else arrays.MIN_VALUE
     high = args.max if args.max is not None else arrays.MAX_VALUE
     arr = sorting.zapolnn(args.count, args.seed, low=low, high=high)
