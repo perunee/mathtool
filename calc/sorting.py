@@ -1,63 +1,6 @@
-from calc.arrays import MAX_COUNT,MAX_SEARCH,MAX_VALUE,MIN_VALUE
-import random
+from calc.arrays import MAX_VALUE, MIN_VALUE
 
 
-
-def zapolnn(count , seed = None, low =MIN_VALUE, high =MAX_VALUE):
-    if low > high:
-        raise ValueError(f"Не верные границы. значение min должно быть меньше max")
-    if int(low) < MIN_VALUE or high > MAX_VALUE:
-        raise ValueError(f"Не верные границы. Максимальное ограничение от {MIN_VALUE} до {MAX_VALUE}")
-    if not(0 < int(count) < MAX_COUNT): 
-        raise ValueError(f"количество элементов вне диапазона 1..{MAX_COUNT}")
-    random.seed(seed)
-    tt =[]
-    i=1
-    while i <= int(count):
-        tt.append(random.randint(low, high))
-        i += 1
-    return tt
-
-def get_array(input_path):
-    
-    if input_path is not None:
-        try:
-            with open(input_path, encoding="utf-8-sig") as handle:
-                text = handle.read()
-        except OSError:
-            raise ValueError("файл не открывается")
-    else:
-        lines = []
-        while True:
-            try:
-                line = input()
-                if not line.strip(): 
-                    break
-                lines.append(line)
-            except EOFError:
-                break
-        text = " ".join(lines)
-
-    text = text.replace(",","")
-    word = text.split()
-    try:
-        numbers = [int(w) for w in word]
-    except ValueError:
-        raise ValueError("В данных есть не целые числа")
-        
-    return numbers
-
-def save_array(input_path,numbers):
-    result_str = " ".join(str(x) for x in numbers)
-    if input_path is not None:
-        try:
-            with open(input_path,"w", encoding="utf-8") as handle:
-                handle.write(result_str)
-        except OSError:
-            raise ValueError("файл не открывается")
-        print(f"Записано элементов: {len(numbers)} в файл {input_path}")
-    else:
-        print(result_str)
 
 
 def poryadok(a,b,desc):
@@ -96,34 +39,27 @@ def insertion(array, desc = False):
                 j-=1
             array[j] = now
 
-def counting(array, desc = False):
-    count = [0]* (MAX_VALUE - MIN_VALUE + 1)
+def counting(array, desc = False, min = MIN_VALUE, max = MAX_VALUE):
+    count = [0]* (max - min + 1)
     for i in array:
-        count[i - MIN_VALUE] +=1
+        try:
+            count[i - min] +=1
+        except:
+            print(f"значение {i} вне диавозона {max, min}")
+            return 1
     k = 0
-    nomer = range(MAX_VALUE - MIN_VALUE + 1)
+    nomer = range(max - min + 1)
     if desc:
         nomer = reversed(nomer)
     for i in nomer:
         for n in range(count[i]):
-            array[k] = i + MIN_VALUE
+            array[k] = i + min
             k+=1
 
     
 METHODS = {  #на 30 000 эл
-    "bubble": bubble, #27сек
+    "bubble": bubble, #44сек
     "selection":selection, #17сек
     "insertion":insertion, #14сек
     "counting":counting #<1сек
 }
-
-
-def double_search(array, isk):
-    left = 0
-    right = len(array)-1
-    while left <= right:
-        mid = (left+right)//2
-        if array[mid] == int(isk): return mid
-        elif array[mid] < int(isk): left = mid + 1
-        else: right = mid - 1
-    return None 

@@ -2,6 +2,7 @@ import sys
 from calc import equation, stats, series, integration, sorting, arrays
 from cli import build_parser
 import time
+from calc.arrays import MIN_VALUE,MAX_VALUE, MAX_COUNT
 
 REPORT = [
     ("Количество", len, "d"),
@@ -58,26 +59,25 @@ def main(argv):
 
 
 def handle_sort(args):
-    array = sorting.get_array(args.input)
+    array = arrays.get_array(args.input)
     function = sorting.METHODS[args.method]
     descending = (args.order == "desc")
     get_time(function,array, descending, args.method)
     # function(array, descending)
-    sorting.save_array(args.output, array)
+    arrays.save_array(args.output, array)
     print("Массив отсортирован")
     return 0
 
 
 def handle_search(args):
-    
     if not (int(args.value) < arrays.MAX_SEARCH):
         raise ValueError("Искомое число больше максимального")
-    array = sorting.get_array(args.input)
+    array = arrays.get_array(args.input)
     for i in range(0,len(array)-1):
         if not(array[i] <= array[i+1]):
-            raise ValueError("Масcив не отсортирован")
+            raise ValueError("Масcив не отсортирован в порядке возростания")
     
-    indecs = sorting.double_search(array, args.value)
+    indecs = arrays.double_search(array, args.value)
     if indecs == None: 
         print(f"Значение {args.value} не найдено")
         return 1
@@ -86,11 +86,21 @@ def handle_search(args):
 
 
 def handle_fill(args):
+    
     low = args.min if args.min is not None else arrays.MIN_VALUE
     high = args.max if args.max is not None else arrays.MAX_VALUE
-    arr = sorting.zapolnn(args.count, args.seed, low=low, high=high)
-    sorting.save_array(args.output, arr)
+    
+    if low < MIN_VALUE or high > MAX_VALUE:
+            raise ValueError(f"Не верные границы. Максимальное ограничение от {MIN_VALUE} до {MAX_VALUE}")
+    if low > high:
+        raise ValueError(f"Не верные границы. Значение min должно быть меньше max")
+    if not(0 < int(args.count) < MAX_COUNT): 
+        raise ValueError(f"Количество элементов вне диапазона 1..{MAX_COUNT}")
+    
+    arr = arrays.zapolnn(args.count, args.seed, low=low, high=high)
+    arrays.save_array(args.output, arr)
     return 0    
+
 
 def handle_integrate(args):
     
